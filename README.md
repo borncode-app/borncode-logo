@@ -88,6 +88,8 @@ borncode-logo/
 ## โซเชียล
 
 - `social/og-image-1200x630.png` — รูปที่ขึ้นตอนแชร์ลิงก์ (Facebook, LINE, X, LinkedIn)
+- `social/profile-stacked-white-1024.png` — รูปโปรไฟล์พื้นขาว สามเหลี่ยม + ชื่อ BornCode
+- `social/profile-stacked-blue-1024.png` — รูปโปรไฟล์พื้นน้ำเงิน สามเหลี่ยม + ชื่อ BornCode สีขาว
 - `social/profile-white-1024.png` — รูปโปรไฟล์พื้นขาว
 - `social/profile-blue-1024.png` — รูปโปรไฟล์พื้นน้ำเงิน `#2D4799` สามเหลี่ยมสีขาว
 
