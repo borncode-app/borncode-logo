@@ -20,7 +20,7 @@ Users phrase this loosely ("อันนี้ด้วย", "แค่ rebrand"
 
 1. **UI rebrand** (tokens, fonts, glass surfaces, shell, loading screen, animation)
 2. **PDF / certificate / email template redesign**
-3. **DESIGN.md** (and README screenshots, if they ask)
+3. **DESIGN.md** (and the README screenshot tour, if they ask)
 4. **Publishing** (commit, push, repo rename, sanitising private data) — never implied by 1–3. When the user only said "rebrand", leave the work uncommitted and offer a commit at the end.
 
 Sanitising company/personal data is a separate job with its own checks; do it only when asked.
@@ -39,8 +39,9 @@ Keep a task list; the order matters because each step makes the next one checkab
 8. **Loading and motion.** Use `BrandMark` (animated: layers drop in base-first, shadow fades in after) and `BrandLoader` at the moments the user actually waits — submitting a login, navigating after it, long server renders, PDF generation — plus `.rise` staggered entrances, skeletons with a shimmer while images load, and `liquid-hover` highlights on cards. Do not add a splash on every page load or on pages that auto-refresh. Motion must respect `prefers-reduced-motion`, and glass must fall back to solid under `prefers-reduced-transparency`.
 9. **Documents (only if in scope).** Follow `references/certificate-pdf.md`; the renderer's coordinates and the signature-mask colour constrain the design.
 10. **Verify** (`references/verification.md`): typecheck, tests, build, then look at it in a browser at desktop and phone width, including the loading and error states. Fix what you see; do not declare it done from a green build alone.
-11. **DESIGN.md.** Fill `assets/DESIGN.template.md` from the *code as it now stands* (read `tailwind.config.js` / `globals.css` / the shell component, do not paraphrase from memory), save as `DESIGN.md` at the repo root, and link it from the README if one exists. `references/design-md.md` explains what each section must contain and how to keep it honest.
-12. **Report.** Say what changed, which tests were deliberately updated and why, what you did not touch (publishing, README screenshots, other repos), and anything you noticed but left alone.
+11. **Screenshot tour (only if in scope).** A rebrand invalidates every old screenshot, so capture a fresh tour of 15–20 images — hero, panel close-ups, loading and error states, every modal and dropdown, every secondary route, plus a phone pass — and rebuild the README around them as a numbered *Product tour* (the model is `training-cert-portal/README.md`). `references/screenshot-tour.md` has the workflow, the gotchas and the bundled capture script. Reviewing the images is also a bug hunt: the dashboard tour exposed a dropdown painted over by a later sibling, modals sitting off-centre, and dialogs hidden from screen readers.
+12. **DESIGN.md.** Fill `assets/DESIGN.template.md` from the *code as it now stands* (read `tailwind.config.js` / `globals.css` / the shell component, do not paraphrase from memory), save as `DESIGN.md` at the repo root, and link it from the README if one exists. `references/design-md.md` explains what each section must contain and how to keep it honest.
+13. **Report.** Say what changed, which tests were deliberately updated and why, what you did not touch (publishing, README screenshots, other repos), and anything you noticed but left alone.
 
 ## Rules that save time (details in `references/pitfalls.md`)
 
@@ -49,6 +50,9 @@ Keep a task list; the order matters because each step makes the next one checkab
 - SVG gradient/filter ids must be unique per component instance (`useId`). A hidden duplicate of the logo (desktop sidebar on mobile) otherwise owns the shared ids and every other logo turns grey.
 - Tailwind remaps like `amber-*` → cyan exist in the dashboard config; check what a colour name really resolves to before reusing it, and use `orange-*`/`warning-*` for real warm accents.
 - `backdrop-filter` is expensive: frame, cards and overlays only, never more than two levels deep.
+- A `backdrop-filter` (or `filter`) ancestor becomes the **containing block for `position: fixed` descendants**, and `overflow: clip` clips them too. A modal rendered inside the glass frame is then laid out against the tall frame instead of the viewport: not centred, scrim not covering the screen, tall panel cut off. **Portal every full-screen overlay to `document.body`.**
+- A `role="dialog"` must not sit inside an `aria-hidden="true"` container — that hides the dialog from screen readers and makes the modal unreachable for Playwright's role queries.
+- An absolutely positioned dropdown can be painted over by a later sibling that is also a stacking context (both animated in, both positioned). Give the dropdown's own row a `z-index` so it wins.
 - Colour a card by giving the **whole card** a `tone-*` class. Never add a corner orb, a top accent bar or a gradient fill to show meaning.
 - Never put sky `#62A5DF` on text over white (2.6:1); sky is for fills and focus rings. Glow colours (`--bc-glow`, `--bc-sky`) are background-only. No violet, no dark navy backdrop.
 - Do not edit the user's local `.env`; if a local setting breaks dev (e.g. a Docker-only path), override it in the launch command and tell the user.
@@ -61,5 +65,6 @@ Keep a task list; the order matters because each step makes the next one checkab
 - `assets/css/borncode-dashboard.css` + `assets/examples/dashboard-formal.html` — dashboard layout with a short-to-long side menu (icon rail that expands on hover, button + drawer on touch/mobile), search bar, stat cards with sparklines, table with priority pills, message feed and bar chart; the spec is section 5.1 of the kit's `DESIGN.md`. Use it for admin, report and back-office screens. The example page is the visual reference to open in a browser.
 - `assets/brand/` — horizontal logo and mark PNGs for embedding in PDFs.
 - `assets/certificate/make-certificate-template.mjs` — the generator for the A4 certificate (background artwork rendered from SVG with sharp, vector text with pdf-lib).
+- `assets/scripts/capture-screenshots.mjs` (+ `capture-screenshots.example.json`) — drives the README screenshot tour from a JSON spec: one entry per shot with the steps to reach the state (goto / wait / click / fill / shot / shotEl / shotPanel), writing WebP through the project's own `playwright` and `sharp`.
 - `assets/DESIGN.template.md` — skeleton for the DESIGN.md you write.
-- `references/` — `rebrand-playbook.md` (per-stack detail), `pitfalls.md`, `verification.md`, `certificate-pdf.md`, `design-md.md`. Read the one you need when you reach that step.
+- `references/` — `rebrand-playbook.md` (per-stack detail), `pitfalls.md`, `verification.md`, `certificate-pdf.md`, `design-md.md`, `screenshot-tour.md` (how to capture a full screenshot tour and build the README around it). Read the one you need when you reach that step.

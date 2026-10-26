@@ -1,0 +1,108 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "outDir": "docs/screenshots",
+  "quality": 88,
+  "viewports": {
+    "desktop": { "width": 1440, "height": 900 },
+    "mobile": { "width": 390, "height": 844, "deviceScaleFactor": 2 }
+  },
+  "shots": [
+    {
+      "name": "hero",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "shot": "dashboard.webp" }
+      ]
+    },
+    {
+      "name": "stat-cards",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "shotEl": { "selector": "div.grid.gap-3.mb-6", "file": "stat-cards.webp" } }
+      ]
+    },
+    {
+      "name": "chart-panel",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "shotPanel": { "text": "Tickets per day", "file": "daily-chart.webp" } }
+      ]
+    },
+    {
+      "name": "search-open",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "fill": { "selector": "input[role=combobox]", "value": "printer" } },
+        { "wait": 1200 },
+        { "shot": "search.webp" }
+      ]
+    },
+    {
+      "name": "modal",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "click": "[role=button]" },
+        { "waitFor": "body > div.fixed.inset-0 [role=dialog]" },
+        { "wait": 900 },
+        { "shot": "modal-tickets.webp" }
+      ]
+    },
+    {
+      "name": "secondary-page",
+      "viewport": "desktop",
+      "steps": [
+        { "goto": "/dashboard/outliers" },
+        { "wait": 1800 },
+        { "shot": "outliers-page.webp" }
+      ]
+    },
+    {
+      "name": "loading",
+      "viewport": "desktop",
+      "delayApi": 7000,
+      "steps": [
+        { "goto": "/", "waitUntil": "domcontentloaded" },
+        { "waitFor": "[role=status]" },
+        { "wait": 1400 },
+        { "shot": "loading.webp" }
+      ]
+    },
+    {
+      "name": "mobile-dashboard",
+      "viewport": "mobile",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "shot": "mobile-dashboard.webp" }
+      ]
+    },
+    {
+      "name": "mobile-drawer",
+      "viewport": "mobile",
+      "steps": [
+        { "goto": "/" },
+        { "waitFor": "text=Dashboard" },
+        { "wait": 1200 },
+        { "click": "[aria-label=\"Open menu\"]" },
+        { "wait": 900 },
+        { "shot": "mobile-drawer.webp" }
+      ]
+    }
+  ]
+}

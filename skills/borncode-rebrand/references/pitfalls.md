@@ -20,6 +20,9 @@ Each item cost time once. Check the relevant one when its symptom shows up.
 | Dark 1 px line along the top and bottom of a rendered certificate/preview | PDF.js draws a full-page raster at fractional pixel bounds and the edge rows blend with black | Give the artwork a 2 pt bleed past the page edge (see `certificate-pdf.md`) |
 | `fullPage` screenshot is blank below the first screen | The gradient background is `position: fixed`, so it only covers the viewport | Resize the viewport to the page height and take a normal screenshot |
 | Many nested blurred panels feel slow | `backdrop-filter` stacked | Frame, cards, overlays only; max two levels |
+| Modal is not centred; the scrim does not cover the screen; a tall panel is cut off | A `backdrop-filter` (or `filter`) ancestor becomes the containing block for `position: fixed` descendants, and `overflow: clip` clips them — so the overlay is laid out against the tall app frame, not the viewport | Portal the overlay to `document.body` (`createPortal(node, document.body)`), the way `TicketDetailModal` already does |
+| The modal is invisible to a screen reader, and Playwright cannot find any button inside it | The overlay that wraps the `role="dialog"` panel carries `aria-hidden="true"`, so the whole subtree is hidden from assistive tech | Drop `aria-hidden` from the overlay; it is a plain div with no role and is ignored anyway |
+| An absolutely positioned dropdown disappears behind the card below it | Both the dropdown's row and the card are sibling stacking contexts (positioned and/or animated in), so the later one paints on top | Give the dropdown's row an explicit `z-index` (e.g. `relative z-30`) |
 
 ## Process
 
@@ -31,6 +34,7 @@ Each item cost time once. Check the relevant one when its symptom shows up.
 - **Testing around a bad local `.env`.** If you must start a dev server while the user's `.env` is wrong for dev, override in the launch config (`cmd /c "set VAR=...&& npm run dev"`, no space before `&&`), don't edit their `.env`, and still fix the root cause in code (previous bullets).
 - **Mock/demo data.** If the app has a database-free mode, make sure every API route honours it, otherwise a demo deploy logs connection errors and waits on failed connects.
 - **Don't change other repos silently.** If you spot a bug in a sibling project (the ghost-triangle fix), fix it where you are working and report the other one.
+- **The screenshot tour is a bug hunt, not paperwork.** Capturing every screen and state exposed three defects on the dashboard that no build, lint or test had flagged: a dropdown painted over by a later sibling, modals laid out against the frame instead of the viewport, and dialogs hidden from screen readers by their own overlay's `aria-hidden`. Look at every image before writing the README, and re-capture after each fix — a screenshot taken before a fix shows the bug.
 
 ## Windows tool quirks
 
