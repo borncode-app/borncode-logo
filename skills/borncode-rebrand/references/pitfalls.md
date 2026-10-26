@@ -11,13 +11,13 @@ Each item cost time once. Check the relevant one when its symptom shows up.
 | Sticky sidebar stops sticking | `overflow: hidden` on the glass frame | Use `overflow: clip` |
 | A centred block jumps left when it animates | `.rise` overrides the `translateX(-50%)` centring | Own keyframes including the translate |
 | Warm accent comes out cyan | `amber-*` is remapped in the dashboard's Tailwind config | Use `orange-*` / `warning-*` |
-| Footer or small text unreadable on a dark blob | Muted text sits straight on the background | Put it in a `white/72` pill with a little blur |
+| Footer or small text unreadable on the saturated left of the gradient | Muted text sits straight on the background | Put it in a `white/72` pill with a little blur |
 | White boxes left over after the restyle | Hard-coded `bg-white`, `bg-black/50`, `bg-neutral-50`, old orange header | `grep -rnE "bg-white|bg-black|bg-neutral-50|bg-amber|from-orange"` across the app and convert each |
 | Orange left-border cards | Old `border-l-*` accent classes | Corner orb + top accent bar |
 | Glass panels look frosted-white but nothing behind them is blurred; `getComputedStyle(el).backdropFilter` is `none` | `backdrop-filter` written before `-webkit-backdrop-filter`: Lightning CSS (Next 16) keeps only the prefixed one, and Chromium ignores `-webkit-backdrop-filter` | Vendor prefix first, standard property last, in every rule and in the reduced-transparency override. Re-check computed style in Chromium after a production build |
 | A CSS-module animation (loader bar sweep, spinner, error pop-in) never moves | `@keyframes` used by a module are renamed per module (`module__hash__name`), so a name defined only in `globals.css` does not resolve | Declare the keyframes inside the module, or apply the animation through a global class |
 | Dark 1 px line along the top and bottom of a rendered certificate/preview | PDF.js draws a full-page raster at fractional pixel bounds and the edge rows blend with black | Give the artwork a 2 pt bleed past the page edge (see `certificate-pdf.md`) |
-| `fullPage` screenshot is blank below the first screen | The colour blobs are `position: fixed`, so they only cover the viewport | Resize the viewport to the page height and take a normal screenshot |
+| `fullPage` screenshot is blank below the first screen | The gradient background is `position: fixed`, so it only covers the viewport | Resize the viewport to the page height and take a normal screenshot |
 | Many nested blurred panels feel slow | `backdrop-filter` stacked | Frame, cards, overlays only; max two levels |
 
 ## Process

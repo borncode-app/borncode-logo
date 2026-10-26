@@ -1,10 +1,10 @@
-// สร้างต้นแบบใบประกาศนียบัตร (A4 แนวนอน) — BornCode liquid glass
+// สร้างต้นแบบใบประกาศนียบัตร (A4 แนวนอน) — BornCode soft glass (ฟ้า–ขาว)
 //
 // รัน: node scripts/make-certificate-template.mjs
 // ผลลัพธ์: assets/certificate.pdf (ใช้เป็น background ตอน render PDF/รูปประกาศ)
 //
 // โครงสร้าง 2 ชั้น
-//   1) ภาพพื้นหลัง (SVG → JPEG 3501×2478 = 300 DPI): แสงฟุ้งสีแบรนด์ แผ่นแก้วหลัก
+//   1) ภาพพื้นหลัง (SVG → JPEG 3501×2478 = 300 DPI): แสงฟ้านุ่ม แผ่นแก้วหลัก
 //      แผ่นสามเหลี่ยมซ้อนชั้นมุมซ้ายบน และตราประทับมุมขวาล่าง — งานที่ต้องใช้เบลอ/ไล่สี
 //   2) เวกเตอร์ (pdf-lib): โลโก้ ตัวอักษร เส้นประชื่อ เส้นลงนาม — คมทุกขนาด
 //
@@ -46,9 +46,9 @@ const BLEED_PX_H = Math.round(((H + BLEED * 2) * PX_H) / H)
 // ---- สีแบรนด์ (BornCode DESIGN.md) ----
 const hex = (h) => rgb(parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255)
 const LAYERS = ['#62A5DF', '#4F87CE', '#4067BA', '#314BA3', '#2B3681', '#24265D']
-const NAVY = hex('#2D4799')
+const BRAND_BLUE = hex('#2D4799')
 const INK = hex('#24265D')
-const MUTED = hex('#566091')   // navy ผสมเทา — 5.9:1 บนขาว
+const MUTED = hex('#566091')   // น้ำเงินผสมเทา — 5.9:1 บนขาว
 const HAIR = hex('#aeb9d6')
 
 // ===================================================================
@@ -72,7 +72,7 @@ function slabs() {
       const pts = `${x0},${y} ${x0 + w},${y} ${x0 + w - skew},${y + h} ${x0},${y + h}`
       return `
     <g>
-      <polygon points="${pts}" fill="#000814" opacity="0.28" transform="translate(0 2.6)" filter="url(#blurS)"/>
+      <polygon points="${pts}" fill="#2D4799" opacity="0.28" transform="translate(0 2.6)" filter="url(#blurS)"/>
       <polygon points="${pts}" fill="url(#slab${i})" stroke="#ffffff" stroke-opacity="0.85" stroke-width="0.7" stroke-linejoin="round"/>
       <polygon points="${x0},${y} ${x0 + w},${y} ${x0 + w - skew * 0.45},${y + h * 0.46} ${x0},${y + h * 0.46}" fill="#ffffff" opacity="0.28"/>
     </g>`
@@ -103,14 +103,14 @@ function artworkSvg() {
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#e4eefb"/>
-      <stop offset="0.55" stop-color="#e9edfb"/>
-      <stop offset="1" stop-color="#f1ecfb"/>
+      <stop offset="0.55" stop-color="#e8eff9"/>
+      <stop offset="1" stop-color="#eff4fb"/>
     </linearGradient>
     <radialGradient id="bSky" cx="0.38" cy="0.35" r="0.75">
       <stop offset="0" stop-color="#9cc8ef"/><stop offset="0.55" stop-color="#4F87CE"/><stop offset="1" stop-color="#2B3681"/>
     </radialGradient>
-    <radialGradient id="bViolet" cx="0.4" cy="0.4" r="0.7">
-      <stop offset="0" stop-color="#cdbff7"/><stop offset="0.6" stop-color="#7B5CD6"/><stop offset="1" stop-color="#2B3681"/>
+    <radialGradient id="bBlue" cx="0.4" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#cfe3f8"/><stop offset="0.6" stop-color="#6FA3E0"/><stop offset="1" stop-color="#2D4799"/>
     </radialGradient>
     <radialGradient id="bPale" cx="0.5" cy="0.5" r="0.6">
       <stop offset="0" stop-color="#c3e0f8"/><stop offset="1" stop-color="#62A5DF"/>
@@ -140,7 +140,7 @@ function artworkSvg() {
   <rect x="${-BLEED}" y="${-BLEED}" width="${W + BLEED * 2}" height="${H + BLEED * 2}" fill="url(#bg)"/>
   <g filter="url(#blurXL)">
     <circle cx="30" cy="${Y(40)}" r="250" fill="url(#bSky)" opacity="0.95"/>
-    <circle cx="${W - 20}" cy="${Y(H - 30)}" r="220" fill="url(#bViolet)" opacity="0.85"/>
+    <circle cx="${W - 20}" cy="${Y(H - 30)}" r="220" fill="url(#bBlue)" opacity="0.85"/>
     <circle cx="${W - 150}" cy="${Y(-10)}" r="170" fill="url(#bSky)" opacity="0.75"/>
     <circle cx="260" cy="${Y(H + 20)}" r="120" fill="url(#bPale)" opacity="0.85"/>
   </g>
@@ -153,7 +153,7 @@ function artworkSvg() {
   <g clip-path="url(#cardClip)">
     <g mask="url(#edgeOnly)" filter="url(#blurL)">
       <circle cx="${CARD.x + 30}" cy="${cardSvgY + 40}" r="150" fill="#62A5DF" opacity="0.55"/>
-      <circle cx="${CARD.x + CARD.w - 20}" cy="${cardSvgY + 30}" r="140" fill="#9d86e6" opacity="0.5"/>
+      <circle cx="${CARD.x + CARD.w - 20}" cy="${cardSvgY + 30}" r="140" fill="#89BBE7" opacity="0.5"/>
       <circle cx="${CARD.x + CARD.w - 10}" cy="${cardSvgY + CARD.h - 30}" r="96" fill="#62A5DF" opacity="0.5"/>
       <circle cx="${CARD.x + 10}" cy="${cardSvgY + CARD.h - 10}" r="64" fill="#9cc8ef" opacity="0.4"/>
     </g>
@@ -240,7 +240,7 @@ const logoW = (logoH.width / logoH.height) * LOGO_HEIGHT
 page.drawImage(logoH, { x: W / 2 - logoW / 2, y: 512, width: logoW, height: LOGO_HEIGHT })
 
 drawCentered('ใบประกาศนียบัตร', { y: 456, size: 42, color: INK, bold: 0.35 })
-drawTracked('CERTIFICATE OF COMPLETION', { cx: W / 2, y: 432, size: 11, color: NAVY, tracking: 4.4 })
+drawTracked('CERTIFICATE OF COMPLETION', { cx: W / 2, y: 432, size: 11, color: BRAND_BLUE, tracking: 4.4 })
 
 // ตัวแบ่งแผ่นซ้อนชั้น 6 ชิ้น (สีไล่จากยอดสว่างลงฐานเข้ม ตามโลโก้)
 {
@@ -261,14 +261,14 @@ drawCentered('This certificate is proudly presented to', { y: 350, size: 9.5, co
 page.drawLine({
   start: { x: DOTTED_LINE_X1, y: DOTTED_LINE_Y },
   end: { x: DOTTED_LINE_X2, y: DOTTED_LINE_Y },
-  thickness: 1.3, color: NAVY, opacity: 0.9, dashArray: [0.01, 3.7], lineCap: LineCapStyle.Round,
+  thickness: 1.3, color: BRAND_BLUE, opacity: 0.9, dashArray: [0.01, 3.7], lineCap: LineCapStyle.Round,
 })
 drawCentered('ชื่อ - นามสกุล  ·  Full name', { y: 273, size: 9.5, color: MUTED })
 
 // ---- เนื้อหา ----
 drawCentered('ได้ผ่านการอบรมตามหลักสูตรที่กำหนด', { y: 245, size: 13, color: MUTED })
 drawCentered('ออกแบบและพัฒนาเว็บแอปพลิเคชันด้วย Next.js', { y: 218, size: 19, color: INK, latinFont: latinBold, bold: 0.18 })
-drawCentered('App Router, React Server Components และการทำ SEO', { y: 196, size: 11.5, color: NAVY })
+drawCentered('App Router, React Server Components และการทำ SEO', { y: 196, size: 11.5, color: BRAND_BLUE })
 
 // ---- ลงนาม ----
 // โครงสร้างเหมือนต้นแบบจริง: พื้นที่ลายเซ็นอยู่ด้านบนเส้น (บริเวณที่ mask ครอบ)
@@ -278,7 +278,7 @@ const SIGNERS = [
   { cx: 600, th: 'วิทยากร', en: 'Instructor' },
 ]
 for (const s of SIGNERS) {
-  page.drawLine({ start: { x: s.cx - 72, y: SIG_LINE_Y }, end: { x: s.cx + 72, y: SIG_LINE_Y }, thickness: 1.3, color: NAVY, opacity: 0.8 })
+  page.drawLine({ start: { x: s.cx - 72, y: SIG_LINE_Y }, end: { x: s.cx + 72, y: SIG_LINE_Y }, thickness: 1.3, color: BRAND_BLUE, opacity: 0.8 })
   drawCentered(s.th, { cx: s.cx, y: 70, size: 13, color: INK, bold: 0.15 })
   drawCentered(s.en, { cx: s.cx, y: 57, size: 9, color: MUTED })
 }

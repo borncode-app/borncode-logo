@@ -13,12 +13,12 @@ Brand colours come from the six layers of the logo triangle. Use them by role, n
 | Muted text | `#566091` | 5.9:1 on white; the dashboard uses `brand-navy/55–70` for the same job |
 | Gradient start, focus ring, fills | `#62A5DF` (layer 1) | **never** text on white (2.6:1) |
 | Middle blues | `#4F87CE`, `#4067BA`, `#314BA3`, `#2B3681` | gradients, chart bars |
-| Background-only light | violet `#7B5CD6` (+ tints `#a48df0`, `#c4b5f5`) | blobs, one rank badge; never text |
+| Background-only light | `#A9C7EC` (`--bc-glow`), `#6FA3E0` (`--bc-sky`), white | background gradient and sheen; never text. No violet, no dark navy backdrop |
 | Danger / pending | rose `#BE123C` (`error-600`) | |
 | Warning | orange (`warning-*`, `orange-*`) | |
 | Success | brand blue in analytics UI (`success-*` mapped to the blue scale); a real green (`#0F7B4F`) is fine for "ready/OK" status chips | |
 
-Page canvas: `linear-gradient(135deg, #EEF5FC, #E7EEFB, #F1EEFB)` fixed, with the blobs on top.
+Page canvas: `--bc-sky-gradient` (`linear-gradient(105deg, #78B6EE, #AFD3F3, #D2E8F9, #E4F0FB, #D8EAFA)`) fixed, with the faint `.liquid-sheen` on top. Smooth gradient only: no blurred coloured circles.
 
 ### When tests or components already use token names
 
@@ -41,14 +41,14 @@ Page canvas: `linear-gradient(135deg, #EEF5FC, #E7EEFB, #F1EEFB)` fixed, with th
 ## Shells
 
 - **Sidebar app (dashboard):** one `glass-frame` (32px radius, blur 28px) holding a sticky 256px sidebar (`sticky top-6 self-start h-[calc(100vh-3rem)]`), top bar, main, footer. Mobile: hamburger → `glass-strong` drawer over a blurred ink scrim. Routes that must be bare (print pages) are listed in one `BARE_ROUTES` array. Use `overflow-clip` on the frame so `sticky` still works.
-- **Single-column portal:** a floating `glass` header bar (logo + title + logout chip), content, footer text inside a small glass pill (it must stay readable wherever a dark blob drifts behind it).
+- **Single-column portal:** a floating `glass` header bar (logo + title + logout chip), content, footer text inside a small glass pill (it must stay readable over the saturated left side of the gradient).
 - Header logo: `borncode-horizontal-color.svg` as an `<img>`; hero/loader/skeleton logos use the inline `BrandMark` so they can animate.
 
 ## Components
 
 - **Stat cards:** replace coloured left borders with a corner orb (blurred gradient circle) plus a short accent bar on the top edge; accent by meaning (pending = rose, total = blue, rate = sky, time = orange, count = neutral/orange/rose by value). Keep count-up numbers.
 - **Charts (Recharts):** gradient bars via `<defs>` + `fill="url(#id)"`, dashed horizontal grid only (`rgba(45,71,153,.15)`), no axis lines, tick colour `#2D4799`, glass tooltip (`white/80`, blur 16px, radius 16). Bar animation 1100 ms.
-- **Tables:** header `white/40`, row dividers `white/60`, hover `white/50`; rank badges with gradients (1 sky→navy, 2 pale sky→royal, 3 lavender→violet).
+- **Tables:** header `white/40`, row dividers `white/60`, hover `white/50`; rank badges with gradients (1 sky→navy, 2 pale sky→royal, 3 white→pale sky).
 - **Modals/dropdowns:** overlay `bg-brand-ink/30 backdrop-blur-md`, panel `glass-strong rounded-3xl`, header strip a `from-brand-sky via-brand-royal to-brand-navy` gradient or `white/40`.
 - **Inputs:** `white/78` fill, 1px `#C5CDE6` border, focus = `0 0 0 4px rgba(98,165,223,.28)` ring plus a 1px lift; error = rose border + ring, error box animates in with `scale-in`.
 - **Print/PDF pages** stay plain white: don't apply glass to anything that gets printed.
@@ -62,7 +62,7 @@ Page canvas: `linear-gradient(135deg, #EEF5FC, #E7EEFB, #F1EEFB)` fixed, with th
 | File download that is generated on request | Intercept the click, `fetch` the file, show spinner + "creating file…", then a check for ~3 s; fall back to normal navigation if the fetch fails |
 | Page entrance | `.rise` stagger, ~100 ms between blocks, 0.85 s `ease-out-expo` |
 | Cards | `liquid-hover` + `trackLiquidHover` pointer glow |
-| Ambient | blobs 22 s drift, logo `float` 5 s, primary button gradient flow 9 s |
+| Ambient | sheen 40 s drift, logo `float` 5 s, primary button gradient flow 9 s |
 
 Do not add a global splash: with streaming it flashes on every hard load, and it would reload every few seconds on any page that uses `<meta refresh>`.
 

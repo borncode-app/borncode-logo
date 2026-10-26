@@ -54,7 +54,7 @@ export default function BrandMark({ className = '', animated = false, title = 'B
 
       <g transform="translate(0 5)" opacity="0.32" className={animated ? 'brand-shadow' : undefined} filter={`url(#${uid}-shadow)`}>
         {LAYERS.map((layer) => (
-          <polygon key={layer.id} points={layer.points} fill="#000814" />
+          <polygon key={layer.id} points={layer.points} fill="#2D4799" />
         ))}
       </g>
 

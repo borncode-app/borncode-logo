@@ -16,7 +16,7 @@
 2. **Principles** — 3–4 lines (liquid glass, layered, calm motion, readable first).
 3. **Colour** — brand table (token, hex, use, contrast note), scales, semantic colours, gradients; list forbidden uses (sky/violet text).
 4. **Typography** — role, font, tailwind/CSS class, notes; text patterns (eyebrow, section title, stat number).
-5. **Glass surfaces** — table of classes with background, blur, where used; shadows; overlay recipe; the background blob specs.
+5. **Glass surfaces** — table of classes with background, blur, where used; shadows; overlay recipe; the background gradient and sheen specs.
 6. **Layout** — frame, sidebar, mobile behaviour, grid order, bare routes, radii.
 7. **Components** — nav item, stat card, buttons, badges, lists, charts, inputs, modals; the logo mark and its id rule.
 8. **Motion** — easing tokens and a table: animation, class, timing, where.

@@ -8,6 +8,6 @@
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "theme_color": "#2D4799",
-  "background_color": "#0A1028",
+  "background_color": "#F5F8FC",
   "display": "standalone"
 }

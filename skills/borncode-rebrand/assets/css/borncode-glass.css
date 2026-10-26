@@ -1,5 +1,5 @@
 /* ===================================================================
-   Liquid glass — พื้นผิวกระจกใช้ซ้ำทั้งเว็บ
+   Soft glass (ฟ้า–ขาว) — พื้นผิวกระจกใช้ซ้ำทั้งเว็บ
    =================================================================== */
 .glass {
   position: relative;
@@ -7,8 +7,8 @@
   border-radius: var(--radius-card);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%);
   box-shadow: var(--shadow-1);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
-  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
 }
 
 /* ประกายขอบบนซ้ายของแผ่นแก้ว */
@@ -57,7 +57,7 @@
 }
 
 /* ===================================================================
-   พื้นหลังแสงฟุ้ง (layout.tsx วางไว้ครั้งเดียวทุกหน้า)
+   พื้นหลังไล่สีฟ้า (layout.tsx วางไว้ครั้งเดียวทุกหน้า) — ไล่สีเรียบทั้งผืน ไม่มีก้อนสี
    =================================================================== */
 .liquid-bg {
   position: fixed;
@@ -65,29 +65,24 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  background: var(--bc-sky-gradient);
 }
 
-.liquid-blob {
+/* แถบแสงขาวจางๆ พาดเฉียง เลื่อนช้ามาก — ให้พื้นมีมิติแต่ไม่เป็นหย่อม */
+.liquid-sheen {
   position: absolute;
-  border-radius: 9999px;
-  filter: blur(42px);
-  opacity: 0.6;
+  inset: -20%;
+  background: linear-gradient(112deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.4) 42%, rgba(255, 255, 255, 0) 56%);
   will-change: transform;
-  animation: blob-drift 22s ease-in-out infinite alternate;
+  animation: sheen-drift 40s ease-in-out infinite alternate;
 }
-.liquid-blob.b1 { width: 52vmax; height: 52vmax; left: -16vmax; bottom: -20vmax; background: radial-gradient(circle at 35% 30%, #8fc3ee, #4067BA 45%, #24265D 80%); opacity: 0.85; }
-.liquid-blob.b2 { width: 42vmax; height: 42vmax; right: -12vmax; top: -14vmax; background: radial-gradient(circle at 40% 40%, #c4b5f5, #7B5CD6 55%, #2B3681 90%); opacity: 0.7; animation-delay: -6s; }
-.liquid-blob.b3 { width: 30vmax; height: 30vmax; right: 14vmax; bottom: -16vmax; background: radial-gradient(circle, #62A5DF, #2D4799 75%); opacity: 0.55; animation-delay: -11s; }
-.liquid-blob.b4 { width: 20vmax; height: 20vmax; left: 36vmax; top: -9vmax; background: radial-gradient(circle, #b9dbf6, #62A5DF 70%); opacity: 0.6; animation-delay: -16s; }
 
 /* ===================================================================
    Keyframes
    =================================================================== */
-@keyframes blob-drift {
-  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; }
-  33% { transform: translate3d(6vw, -4vh, 0) scale(1.12) rotate(40deg); border-radius: 60% 40% 35% 65% / 55% 35% 65% 45%; }
-  66% { transform: translate3d(-4vw, 5vh, 0) scale(0.92) rotate(-20deg); border-radius: 38% 62% 55% 45% / 62% 48% 52% 38%; }
-  100% { transform: translate3d(3vw, 2vh, 0) scale(1.05) rotate(15deg); border-radius: 50% 50% 45% 55% / 40% 60% 40% 60%; }
+@keyframes sheen-drift {
+  from { transform: translate3d(-5%, 0, 0); }
+  to { transform: translate3d(7%, 0, 0); }
 }
 
 /* ของค่อย ๆ ลอยขึ้นมาเหมือนน้ำ: ขยับ + เบลอจางลง */
@@ -215,7 +210,7 @@
   .glass-chip {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: #f4f7fd;
+    background: #F5F8FC;
   }
 }
 

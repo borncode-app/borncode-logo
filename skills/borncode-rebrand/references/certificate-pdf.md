@@ -23,7 +23,7 @@ Fonts: Noto Sans Thai (Thai), Outfit Regular/SemiBold (Latin) — the files in `
 
 ## Design recipe that worked
 
-- Page gradient `#e4eefb → #e9edfb → #f1ecfb`; blobs: sky/royal bottom-left (r≈250), violet top-right, sky top-right edge, pale sky top-left.
+- Page gradient `#e4eefb → #e8eff9 → #eff4fb`; blobs: sky/royal bottom-left (r≈250), blue (`#6FA3E0 → #2D4799`) top-right, sky top-right edge, pale sky top-left. Blue and white only: no violet.
 - Glass card inset 30 pt, radius 22, fill `#fcfcfc`, shadow = same shape in `#24265D` at 30 % blurred ~14 pt offset 9 pt down; rim gradient white→`#9cc8ef`→white 2.2 px; inner white hairline; inner frame 12 pt in at `#2D4799` 20 %.
 - Edge tint: blobs clipped to the card and revealed only near the edge via an SVG mask (black rounded rect, blurred, inset ~84 pt on left/top/right but only ~26 pt at the bottom).
 - Slab stack top-left: six parallelograms, widths 214→66, height 10.5, gap 3.6, skew 9, layer colours 1→6, white rim and a top-half gloss.

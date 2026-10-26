@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BornCode — ตัวอย่างแดชบอร์ด</title>
+<!-- ตัวอย่างอ้างอิงสำหรับ dev: ใช้ borncode-tokens.css + borncode-glass.css + borncode-dashboard.css เท่านั้น -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/borncode-tokens.css">
+<link rel="stylesheet" href="../css/borncode-glass.css">
+<link rel="stylesheet" href="../css/borncode-dashboard.css">
+<style>
+  :root { --font-noto: "Noto Sans Thai", "Leelawadee UI", "Segoe UI"; --font-comfortaa: "Comfortaa"; }
+</style>
+</head>
+<body>
+<div class="liquid-bg" aria-hidden="true"><div class="liquid-sheen"></div></div>
+
+<!-- ชุดไอคอนเส้นบาง ใช้ซ้ำด้วย <use href="#i-..."> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-docs" viewBox="0 0 24 24"><path d="M8 3.5h8.5A2.5 2.5 0 0 1 19 6v12a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 18V6A2.5 2.5 0 0 1 8 3.5Z"/><path d="M9 9h6M9 12.5h6M9 16h3.5"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H17a2 2 0 0 1 2 2v1.5"/><path d="M4 7.5V17a2.5 2.5 0 0 0 2.5 2.5H18a2 2 0 0 0 2-2v-8a1 1 0 0 0-1-1H6.5A2.5 2.5 0 0 1 4 7.5Z"/><circle cx="15.5" cy="13.5" r="1.1"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.5H5l1.5-1.5Z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><path d="M8 3.5h8.5A2.5 2.5 0 0 1 19 6v12a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 18V6A2.5 2.5 0 0 1 8 3.5Z"/><path d="m9 11 1.8 1.8L14.5 9M9 16.5h5.5"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 14.5 6-6 6 6"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="m19 11-7.2 7.2a4.2 4.2 0 0 1-6-6L13 5a2.8 2.8 0 0 1 4 4l-7.2 7.2a1.4 1.4 0 0 1-2-2L14 7.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="16.5" cy="8" r="2.5"/><path d="M16.5 13.2a4.6 4.6 0 0 1 4 4.3"/></symbol>
+</svg>
+
+<div class="bc-shell">
+
+  <!-- เมนูข้าง: ปกติสั้น (เหลือแต่ไอคอน) เอาเมาส์ไปค้างไว้แล้วขยายเป็นแบบยาวเอง ไม่ต้องคลิก -->
+  <nav class="bc-sidenav" id="bc-sidenav" aria-label="เมนูหลัก">
+    <div class="bc-sidenav__panel">
+      <a class="bc-nav__logo" href="#" aria-label="BornCode">
+        <img class="bc-nav__logo-mark" src="../brand/borncode-mark.png" alt="">
+        <img class="bc-nav__logo-full" src="../brand/borncode-horizontal.png" alt="BornCode">
+      </a>
+      <div class="bc-nav__user">
+        <span class="bc-avatar bc-avatar--lg" aria-hidden="true">สช</span>
+        <span class="bc-nav__text"><b>คุณสมชาย</b><small>ผู้ดูแลระบบ</small></span>
+      </div>
+      <hr>
+      <p class="bc-label">เมนูหลัก</p>
+      <ul class="bc-menu">
+        <li>
+          <a class="bc-menu__item" href="#" aria-current="page"><svg class="bc-icon" aria-hidden="true"><use href="#i-grid"/></svg><span class="bc-nav__text">แดชบอร์ด</span><svg class="bc-icon bc-chevron bc-nav__more" aria-hidden="true"><use href="#i-chev-up"/></svg></a>
+          <ul class="bc-submenu">
+            <li><a href="#">กิจกรรม</a></li>
+            <li><a href="#">สถิติ</a></li>
+            <li><a href="#" aria-current="page">เคสที่ต้องดำเนินการ</a></li>
+          </ul>
+        </li>
+        <li><a class="bc-menu__item" href="#"><svg class="bc-icon" aria-hidden="true"><use href="#i-tasks"/></svg><span class="bc-nav__text">งาน</span><span class="bc-badge" aria-label="5 รายการใหม่">5</span></a></li>
+        <li><a class="bc-menu__item" href="#"><svg class="bc-icon" aria-hidden="true"><use href="#i-docs"/></svg><span class="bc-nav__text">คลังเอกสาร</span></a></li>
+        <li><a class="bc-menu__item" href="#"><svg class="bc-icon" aria-hidden="true"><use href="#i-wallet"/></svg><span class="bc-nav__text">การเงิน</span></a></li>
+        <li><a class="bc-menu__item" href="#"><svg class="bc-icon" aria-hidden="true"><use href="#i-bell"/></svg><span class="bc-nav__text">การแจ้งเตือน</span></a></li>
+        <li><a class="bc-menu__item" href="#"><svg class="bc-icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="bc-nav__text">รายการโปรด</span></a></li>
+      </ul>
+
+      <div class="bc-nav__section">
+        <p class="bc-label">ข้อความล่าสุด <svg class="bc-icon bc-nav__more" aria-hidden="true"><use href="#i-chev-down"/></svg></p>
+        <ul class="bc-contacts">
+          <li><span class="bc-avatar" data-status="online" aria-hidden="true">อก</span><span class="bc-nav__text">เอริก กุนเซล</span></li>
+          <li><span class="bc-avatar bc-avatar--accent" data-status="away" aria-hidden="true">อม</span><span class="bc-nav__text">เอมิลี่ สมิธ</span></li>
+          <li><span class="bc-avatar" data-status="online" aria-hidden="true">อธ</span><span class="bc-nav__text">อาร์เธอร์ อเดลค์</span></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- เนื้อหา -->
+  <div class="bc-content">
+    <div class="bc-topbar">
+      <!-- ปุ่มนี้แสดงเฉพาะจอสัมผัส/มือถือ (ที่ไม่มีเมาส์ให้ค้าง) -->
+      <button class="bc-menu-btn" type="button" aria-controls="bc-sidenav" aria-expanded="false" aria-label="เปิดเมนู"><svg class="bc-icon"><use href="#i-menu"/></svg></button>
+      <label class="bc-search">
+        <svg class="bc-icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <input type="search" placeholder="ค้นหา..." aria-label="ค้นหา">
+      </label>
+    </div>
+
+    <main class="bc-board">
+
+      <section class="bc-stats" aria-label="สรุป">
+        <article class="bc-card bc-greeting">
+          <span class="bc-avatar bc-avatar--lg" style="width:48px;height:48px;font-size:16px">สช</span>
+          <div>
+            <h2>สวัสดี คุณสมชาย</h2>
+            <p>มีเคสใหม่รอดำเนินการ</p>
+          </div>
+        </article>
+
+        <article class="bc-card bc-stat">
+          <p class="bc-label">เคสใหม่</p>
+          <svg class="bc-stat__spark bc-spark--up" viewBox="0 0 120 54" preserveAspectRatio="none" aria-hidden="true"><path d="M2 38 C 12 48, 22 52, 32 40 S 52 26, 62 36 S 82 22, 94 14 S 112 6, 118 4"/></svg>
+          <div class="bc-stat__value">104</div>
+          <div class="bc-stat__foot"><span>แนวโน้มเดือนที่แล้ว</span><span class="bc-delta bc-delta--up">+14.88%</span></div>
+        </article>
+
+        <article class="bc-card bc-stat">
+          <p class="bc-label">งานใหม่</p>
+          <svg class="bc-stat__spark bc-spark--down" viewBox="0 0 120 54" preserveAspectRatio="none" aria-hidden="true"><path d="M2 22 C 8 30, 14 26, 20 22 S 30 40, 40 34 S 54 6, 66 8 S 80 44, 92 30 S 108 8, 118 28"/></svg>
+          <div class="bc-stat__value">34</div>
+          <div class="bc-stat__foot"><span>แนวโน้มเดือนที่แล้ว</span><span class="bc-delta bc-delta--down">−5.67%</span></div>
+        </article>
+      </section>
+
+      <section class="bc-card" aria-labelledby="t-cases">
+        <div class="bc-card__head">
+          <h3 class="bc-label" id="t-cases">รายการเคสที่รออนุมัติ</h3>
+          <a class="bc-card__link" href="#">ดูทั้งหมด <svg class="bc-icon"><use href="#i-chev-r"/></svg></a>
+        </div>
+        <div class="bc-table__scroll">
+          <table class="bc-table">
+            <thead><tr><th scope="col">ชื่อเรื่อง</th><th scope="col">วันที่</th><th scope="col">ความสำคัญ</th><th scope="col">ไฟล์แนบ</th><th scope="col">ผู้รับผิดชอบ</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="bc-table__name"><input class="bc-check" type="checkbox" checked aria-label="เลือกแถว">ขอตรวจสอบสัญญาเช่า…</td>
+                <td>18 พ.ค. 2569 – 25 พ.ค. 2569</td>
+                <td><span class="bc-pill bc-pill--low">ต่ำ</span></td>
+                <td><span class="bc-chip"><svg class="bc-icon"><use href="#i-clip"/></svg>ข้อกำหนด.pdf</span></td>
+                <td><svg class="bc-icon" style="color:var(--color-text-muted)"><use href="#i-users"/></svg></td>
+              </tr>
+              <tr>
+                <td class="bc-table__name"><input class="bc-check" type="checkbox" aria-label="เลือกแถว">ขอแก้ไขเอกสารสิทธิ์</td>
+                <td>18 พ.ค. 2569 – 25 พ.ค. 2569</td>
+                <td><span class="bc-pill bc-pill--medium">ปานกลาง</span></td>
+                <td><span class="bc-chip"><svg class="bc-icon"><use href="#i-clip"/></svg>เคสใหม่.pdf</span></td>
+                <td><span class="bc-avatars"><span class="bc-avatar">สม</span><span class="bc-avatar bc-avatar--accent">ลอ</span></span></td>
+              </tr>
+              <tr>
+                <td class="bc-table__name"><input class="bc-check" type="checkbox" aria-label="เลือกแถว">ร้องเรียนการละเมิดลิขสิทธิ์</td>
+                <td>19 พ.ค. 2569 – 30 พ.ค. 2569</td>
+                <td><span class="bc-pill bc-pill--high">สูง</span></td>
+                <td><span class="bc-chip"><svg class="bc-icon"><use href="#i-clip"/></svg>หลักฐาน.pdf</span></td>
+                <td><span class="bc-avatars"><span class="bc-avatar">นก</span></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bc-card" aria-labelledby="t-comm">
+        <div class="bc-card__head">
+          <h3 class="bc-label" id="t-comm">การสื่อสาร (7 วันล่าสุด)</h3>
+          <a class="bc-card__link" href="#">ดูทั้งหมด <svg class="bc-icon"><use href="#i-chev-r"/></svg></a>
+        </div>
+        <ul class="bc-feed">
+          <li><b>มาร์ค วอห์ลเบิร์ก</b><p>ขอส่งเอกสารเพิ่มเติมสำหรับเคสที่รออนุมัติ กรุณาตรวจสอบรายละเอียดอีกครั้งก่อนวันศุกร์…</p><time>2 วันที่แล้ว</time><span class="bc-dot" role="img" aria-label="ยังไม่ได้อ่าน"></span></li>
+          <li><b>ลีโอนาร์โด ดิคาปริโอ</b><p>ได้รับเอกสารครบถ้วนแล้ว จะดำเนินการต่อในสัปดาห์หน้า ขอบคุณที่ประสานงานอย่างรวดเร็ว…</p><time>4 วันที่แล้ว</time></li>
+        </ul>
+      </section>
+
+      <div class="bc-duo">
+        <section class="bc-card" aria-labelledby="t-types">
+          <div class="bc-card__head">
+            <h3 class="bc-label" id="t-types">สัดส่วนเคสตามประเภท</h3>
+            <a class="bc-card__link" href="#">ดูรายงาน <svg class="bc-icon"><use href="#i-chev-r"/></svg></a>
+          </div>
+          <div class="bc-bars">
+            <svg viewBox="0 0 280 190" role="img" aria-label="กราฟแท่งแสดงจำนวนเคสตามประเภท">
+              <defs><linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4F87CE"/><stop offset="1" stop-color="#2D4799"/></linearGradient></defs>
+              <g class="bc-bars__grid"><path d="M34 10H276M34 50H276M34 90H276M34 130H276M34 170H276"/></g>
+              <g class="bc-bars__label"><text x="0" y="14">100</text><text x="6" y="54">75</text><text x="6" y="94">50</text><text x="6" y="134">25</text><text x="14" y="174">0</text></g>
+              <g fill="url(#bar)"><rect x="52" y="48" width="34" height="122" rx="8"/><rect x="108" y="93" width="34" height="77" rx="8" opacity=".85"/><rect x="164" y="114" width="34" height="56" rx="8" opacity=".7"/><rect x="220" y="135" width="34" height="35" rx="8" opacity=".55"/></g>
+            </svg>
+            <ul class="bc-legend">
+              <li><i style="background:#2D4799"></i>ผลิตภัณฑ์<b>76</b></li>
+              <li><i style="background:#4F87CE"></i>เครื่องหมายการค้า<b>48</b></li>
+              <li><i style="background:#6FA3E0"></i>สิทธิบัตร<b>35</b></li>
+              <li><i style="background:#A9C7EC"></i>อื่นๆ<b>22</b></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="bc-card" aria-labelledby="t-country">
+          <div class="bc-card__head">
+            <h3 class="bc-label" id="t-country">จำนวนเคสแยกตามประเทศ</h3>
+            <a class="bc-card__link" href="#">ดูทั้งหมด <svg class="bc-icon"><use href="#i-chev-r"/></svg></a>
+          </div>
+          <table class="bc-table">
+            <thead><tr><th scope="col">ประเทศ</th><th scope="col">เคสที่เปิดอยู่</th></tr></thead>
+            <tbody>
+              <tr><td class="bc-table__name">ไทย</td><td>76 <span class="bc-delta bc-delta--up">↑ 16.7%</span></td></tr>
+              <tr><td class="bc-table__name">สิงคโปร์</td><td>54 <span class="bc-delta bc-delta--up">↑ 8.2%</span></td></tr>
+              <tr><td class="bc-table__name">ญี่ปุ่น</td><td>31 <span class="bc-delta bc-delta--down">↓ 3.4%</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script>
+/* เมนูข้าง: บนจอที่มีเมาส์ ขยาย/หดด้วย CSS ล้วน (hover) · สคริปต์นี้ใช้เฉพาะจอสัมผัส/มือถือที่กดปุ่มเมนู
+   Esc หรือคลิกนอกแผงเพื่อปิด · ต่อ #nav=open ท้าย URL เพื่อดูสถานะยาวโดยไม่ต้องค้างเมาส์ */
+(() => {
+  const nav = document.querySelector('.bc-sidenav');
+  const btn = document.querySelector('.bc-menu-btn');
+  const setOpen = (open) => {
+    nav.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+  };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!nav.classList.contains('is-open')); });
+  document.addEventListener('click', (e) => { if (nav.classList.contains('is-open') && !nav.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+  });
+  if (location.hash === '#nav=open') setOpen(true);
+})();
+</script>
+</body>
+</html>

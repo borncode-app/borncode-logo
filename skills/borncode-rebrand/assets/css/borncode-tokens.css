@@ -1,4 +1,4 @@
-/* Design tokens — BornCode liquid glass
+/* Design tokens — BornCode soft glass (ฟ้า–ขาว)
    ชื่อ token ตรงกับ tech-stack.md §6 (src/lib/tokens.test.ts ตรวจชื่อและค่าสีหลัก)
    ค่าสี/ตัวอักษร/แผ่นแก้วตามระบบออกแบบแบรนด์ BornCode
    ถ้าจะเพิ่ม token ต้องกลับไปแก้ spec ก่อน */
@@ -15,8 +15,13 @@
   --bc-layer-4: #314BA3;
   --bc-layer-5: #2B3681;
   --bc-layer-6: #24265D;
-  --bc-navy: #0A1028;     /* พื้นมืดของแบรนด์ */
-  --bc-violet: #7B5CD6;   /* แสงฟุ้งในพื้นหลังเท่านั้น ห้ามใช้กับข้อความ */
+  --bc-surface: #F5F8FC;  /* พื้นหลังสว่างของแบรนด์ (ปลายอ่อน) */
+  --bc-surface-2: #D9E2EE; /* พื้นหลังสว่างของแบรนด์ (ปลายเข้ม) */
+  --bc-glow: #A9C7EC;     /* แสงฟ้าอ่อนฟุ้งในพื้นหลังเท่านั้น ห้ามใช้กับข้อความ */
+  --bc-sky: #6FA3E0;      /* ปลายอ่อนของพื้นหลังสีน้ำเงิน */
+  --bc-ink: #16213E;      /* ข้อความเนื้อหา (14.9:1 บน #F5F8FC) */
+  /* พื้นหลังไล่สีฟ้าเรียบทั้งผืน: ซ้ายฟ้าเข้ม → ขวาฟ้าอ่อนเกือบขาว (ไม่มีหย่อมสี) */
+  --bc-sky-gradient: linear-gradient(105deg, #78B6EE 0%, #AFD3F3 16%, #D2E8F9 38%, #E4F0FB 62%, #D8EAFA 100%);
 
   --color-brand: #2D4799;
   --color-brand-hover: #2B3681;
@@ -77,8 +82,8 @@ body {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-body);
   color: var(--color-text);
-  /* ผืนผ้าใบอ่อนสีแบรนด์ — แสงฟุ้ง (.liquid-bg) วางทับด้านบน */
-  background: linear-gradient(135deg, #EEF5FC 0%, #E7EEFB 45%, #F1EEFB 100%) fixed;
+  /* พื้นหลังไล่สีฟ้า — .liquid-bg ใช้ไล่สีเดียวกัน จึงเนียนต่อกันถ้าไม่ได้ใส่ component */
+  background: var(--bc-sky-gradient) fixed;
   margin: 0;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

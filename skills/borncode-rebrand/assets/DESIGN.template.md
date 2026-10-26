@@ -20,9 +20,9 @@ Source of truth in code:
 
 ## 1. Principles
 
-- **Liquid glass:** every surface is frosted glass over slowly drifting brand-coloured light.
-- **Layered:** depth comes from blur, an inner rim highlight and soft navy shadows, not from borders or solid fills.
-- **Calm motion:** things rise into place once, then stay still. The only continuous motion is the background blobs and gentle floating on the logo.
+- **Soft glass:** every surface is frosted glass over slowly drifting pale blue light. Blue and white only.
+- **Layered:** depth comes from blur, an inner rim highlight and soft blue shadows, not from borders or solid fills.
+- **Calm motion:** things rise into place once, then stay still. The only continuous motion is the faint background sheen and gentle floating on the logo.
 - **Readable first:** text sits on 50–90 % white glass so contrast holds whatever drifts behind it.
 
 ## 2. Colour
@@ -39,7 +39,7 @@ Source of truth in code:
 | `brand-indigo` / `--bc-layer-5` | `#2B3681` | Logo layer 5, hover |
 | `brand-ink` / `--bc-layer-6` | `#24265D` | Headings and main text |
 
-Background-only accent: violet `#7B5CD6` (tints `#a48df0`, `#c4b5f5`) for glow blobs <and rank-3 badge>. Never text.
+Background-only light: `--bc-glow` `#A9C7EC`, `--bc-sky` `#6FA3E0` and white for the background gradient and sheen. Never text. No violet or other off-brand glow, and no dark navy backdrop.
 
 ### Semantic and scales
 
@@ -52,7 +52,7 @@ Background-only accent: violet `#7B5CD6` (tints `#a48df0`, `#c4b5f5`) for glow b
 | Brand button | `135deg, #62A5DF → #4067BA → #2D4799 (→ #2B3681)` | `.btn-brand`, active nav icon, avatar |
 | <Chart closed> | vertical `#62A5DF → #2D4799` | <charts> |
 | <Chart pending> | vertical `#fda4af → #e11d48` | <charts> |
-| Page canvas | `135deg, #eef5fc → #e7eefb → #f1eefb` | `body` behind the blobs |
+| Page canvas | `105deg, #78B6EE → #AFD3F3 → #D2E8F9 → #E4F0FB → #D8EAFA` (`--bc-sky-gradient`) | `body` and `.liquid-bg`, fixed |
 
 ## 3. Typography
 
@@ -83,7 +83,7 @@ Overlay: `bg-brand-ink/30 backdrop-blur-md`. Dividers/rows: `white/60`, row hove
 
 ### Background (`.liquid-bg`)
 
-Four fixed blurred (40 px) radial blobs drifting on a 22 s `blob-drift` loop with staggered delays: <list size, position, colours, opacity>.
+One fixed smooth gradient (`--bc-sky-gradient`: dark sky on the left fading to near-white on the right) with a faint white diagonal sheen (`.liquid-sheen`, 40 s `sheen-drift`). No blurred circles: they read as blotches.
 
 ## 5. Layout
 
@@ -110,7 +110,7 @@ Easing tokens: `--ease-out-expo` `cubic-bezier(0.16,1,0.3,1)`, `--ease-out-quart
 | Rise | `.rise` + `--d` | 0.85 s, blur 6 px → 0, ~100 ms stagger | Page blocks |
 | Liquid hover | `.liquid-hover` | 0.4 s | Cards (pointer glow via `--mx/--my`) |
 | Gradient flow | `.btn-brand` | 9 s | Primary buttons |
-| Background | `blob-drift` | 22 s alternate | `.liquid-blob` |
+| Background | `sheen-drift` | 40 s alternate | `.liquid-sheen` |
 | <project-specific> | | | |
 
 ## 8. Accessibility
@@ -118,7 +118,7 @@ Easing tokens: `--ease-out-expo` `cubic-bezier(0.16,1,0.3,1)`, `--ease-out-quart
 - Text is `brand-ink` / `brand-navy` on light glass; sky is never used for text on white.
 - Focus: `focus-visible` ring in `brand-sky`/`primary-500` with offset.
 - `prefers-reduced-motion`: animations and transitions collapse to ~0.
-- `prefers-reduced-transparency`: glass classes drop `backdrop-filter` and become solid `#f4f7fd`.
+- `prefers-reduced-transparency`: glass classes drop `backdrop-filter` and become solid `#F5F8FC`.
 - Loaders use `role="status"` with `aria-live="polite"`; clickable non-links have `role="button"` and keyboard handlers.
 
 ## 9. Rules of thumb
