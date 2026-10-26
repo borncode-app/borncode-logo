@@ -1,0 +1,96 @@
+/* Design tokens — BornCode liquid glass
+   ชื่อ token ตรงกับ tech-stack.md §6 (src/lib/tokens.test.ts ตรวจชื่อและค่าสีหลัก)
+   ค่าสี/ตัวอักษร/แผ่นแก้วตามระบบออกแบบแบรนด์ BornCode
+   ถ้าจะเพิ่ม token ต้องกลับไปแก้ spec ก่อน */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  /* ===== สีแบรนด์: 6 ชั้นของสามเหลี่ยมในโลโก้ ===== */
+  --bc-layer-1: #62A5DF;
+  --bc-layer-2: #4F87CE;
+  --bc-layer-3: #4067BA;
+  --bc-layer-4: #314BA3;
+  --bc-layer-5: #2B3681;
+  --bc-layer-6: #24265D;
+  --bc-navy: #0A1028;     /* พื้นมืดของแบรนด์ */
+  --bc-violet: #7B5CD6;   /* แสงฟุ้งในพื้นหลังเท่านั้น ห้ามใช้กับข้อความ */
+
+  --color-brand: #2D4799;
+  --color-brand-hover: #2B3681;
+  --color-brand-active: #24265D;
+
+  /* ===== สีน้ำเงิน 11 ระดับ (ramp จากสีชั้นโลโก้) ===== */
+  --blue-50: #EEF5FC;
+  --blue-100: #D9E9F8;
+  --blue-200: #B5D4F0;
+  --blue-300: #89BBE7;
+  --blue-400: #62A5DF;
+  --blue-500: #4F87CE;
+  --blue-600: #4067BA;
+  --blue-700: #2D4799;
+  --blue-800: #2B3681;
+  --blue-900: #24265D;
+  --blue-950: #171A40;
+
+  /* สีอ่อน */
+  --color-tint: #EEF5FC;
+  --color-tint-strong: #D9E9F8;
+
+  /* ===== ตัวอักษรและพื้นผิว (ทุกคู่สีผ่าน WCAG AA บนพื้นขาว) ===== */
+  --color-text: #24265D;
+  --color-text-secondary: #3B4472;
+  --color-text-muted: #566091;
+  --color-border: #C5CDE6;
+  --color-divider: #E0E6F4;
+  --color-bg-secondary: #F1F4FB;
+  --color-bg-faint: #F7F9FD;
+
+  /* ===== สถานะ ===== */
+  --color-danger: #BE123C;
+  --color-danger-bg: #FFF1F2;
+  --color-success: #0F7B4F;
+  --color-success-bg: #E8F8F0;
+
+  /* ===== รูปทรง ===== */
+  --radius-control: 14px;
+  --radius-card: 22px;
+
+  /* ===== ตัวอักษร ===== */
+  --font-size-body: 16px;
+  --font-weight-body: 500; /* 500 จริง ไม่ใช่ 400 — ชดเชยอักษรไทย */
+
+  /* ===== เงาแบบกระจก ===== */
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 8px 28px -10px rgba(36, 38, 93, 0.22);
+  --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.85) inset, 0 16px 40px -12px rgba(36, 38, 93, 0.3);
+  --shadow-3: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 28px 70px -20px rgba(36, 38, 93, 0.38);
+
+  /* ===== จังหวะการเคลื่อนไหว ===== */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body {
+  font-family: var(--font-noto), system-ui, sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-body);
+  color: var(--color-text);
+  /* ผืนผ้าใบอ่อนสีแบรนด์ — แสงฟุ้ง (.liquid-bg) วางทับด้านบน */
+  background: linear-gradient(135deg, #EEF5FC 0%, #E7EEFB 45%, #F1EEFB 100%) fixed;
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--blue-200);
+  color: var(--blue-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--bc-layer-2);
+  outline-offset: 2px;
+}
+

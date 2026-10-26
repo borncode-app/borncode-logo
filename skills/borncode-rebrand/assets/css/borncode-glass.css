@@ -1,0 +1,221 @@
+/* ===================================================================
+   Liquid glass — พื้นผิวกระจกใช้ซ้ำทั้งเว็บ
+   =================================================================== */
+.glass {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-card);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%);
+  box-shadow: var(--shadow-1);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+}
+
+/* ประกายขอบบนซ้ายของแผ่นแก้ว */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 42%, rgba(98, 165, 223, 0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-strong {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.66) 100%);
+  box-shadow: var(--shadow-2);
+}
+
+/* ชิ้นเล็ก: ปุ่มรอง ป้ายสถานะ ช่องข้อมูล */
+.glass-chip {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: var(--radius-control);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 18px -8px rgba(36, 38, 93, 0.22);
+}
+
+/* ปุ่มหลัก — ไล่สีแบรนด์ ไหลช้า ๆ */
+.btn-brand {
+  color: #ffffff;
+  background: linear-gradient(135deg, #62A5DF 0%, #4067BA 45%, #2D4799 75%, #2B3681 100%);
+  background-size: 220% 220%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 12px 28px -10px rgba(45, 71, 153, 0.7);
+  animation: gradient-flow 9s ease-in-out infinite;
+  transition: transform 0.2s var(--ease-out-quart), box-shadow 0.3s ease, filter 0.2s ease;
+}
+.btn-brand:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 16px 34px -10px rgba(45, 71, 153, 0.8);
+}
+.btn-brand:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* ===================================================================
+   พื้นหลังแสงฟุ้ง (layout.tsx วางไว้ครั้งเดียวทุกหน้า)
+   =================================================================== */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.liquid-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(42px);
+  opacity: 0.6;
+  will-change: transform;
+  animation: blob-drift 22s ease-in-out infinite alternate;
+}
+.liquid-blob.b1 { width: 52vmax; height: 52vmax; left: -16vmax; bottom: -20vmax; background: radial-gradient(circle at 35% 30%, #8fc3ee, #4067BA 45%, #24265D 80%); opacity: 0.85; }
+.liquid-blob.b2 { width: 42vmax; height: 42vmax; right: -12vmax; top: -14vmax; background: radial-gradient(circle at 40% 40%, #c4b5f5, #7B5CD6 55%, #2B3681 90%); opacity: 0.7; animation-delay: -6s; }
+.liquid-blob.b3 { width: 30vmax; height: 30vmax; right: 14vmax; bottom: -16vmax; background: radial-gradient(circle, #62A5DF, #2D4799 75%); opacity: 0.55; animation-delay: -11s; }
+.liquid-blob.b4 { width: 20vmax; height: 20vmax; left: 36vmax; top: -9vmax; background: radial-gradient(circle, #b9dbf6, #62A5DF 70%); opacity: 0.6; animation-delay: -16s; }
+
+/* ===================================================================
+   Keyframes
+   =================================================================== */
+@keyframes blob-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; }
+  33% { transform: translate3d(6vw, -4vh, 0) scale(1.12) rotate(40deg); border-radius: 60% 40% 35% 65% / 55% 35% 65% 45%; }
+  66% { transform: translate3d(-4vw, 5vh, 0) scale(0.92) rotate(-20deg); border-radius: 38% 62% 55% 45% / 62% 48% 52% 38%; }
+  100% { transform: translate3d(3vw, 2vh, 0) scale(1.05) rotate(15deg); border-radius: 50% 50% 45% 55% / 40% 60% 40% 60%; }
+}
+
+/* ของค่อย ๆ ลอยขึ้นมาเหมือนน้ำ: ขยับ + เบลอจางลง */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(22px) scale(0.985); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.rise {
+  opacity: 0;
+  animation: rise-in 0.85s var(--ease-out-expo) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float {
+  animation: float-y 5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* โลโก้ประกอบทีละชั้นตอนโหลด */
+@keyframes layer-drop {
+  0% { opacity: 0; transform: translateY(-28px) scale(0.96); }
+  60% { opacity: 1; transform: translateY(3px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes layer-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.brand-layer {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: layer-drop 0.7s var(--ease-out-expo) forwards, layer-breathe 2.4s ease-in-out 1.4s infinite;
+}
+
+/* เงาใต้โลโก้ค่อยโผล่ตามหลังชั้นที่หล่นลงมา — ไม่ให้เห็นเงาสามเหลี่ยมลอย ๆ ก่อนที่ชั้นจะมา */
+@keyframes shadow-in {
+  from { opacity: 0; }
+  to { opacity: 0.32; }
+}
+.brand-shadow {
+  opacity: 0;
+  animation: shadow-in 0.9s ease 0.75s forwards;
+}
+
+/* แผ่นแก้วเลื่อนผ่าน (ใช้กับโครงระหว่างรอภาพ) */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.85) 50%, transparent 80%);
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* แสงที่ไหลตามเมาส์บนการ์ด — ตั้ง --mx / --my ด้วย trackLiquidHover() */
+.liquid-hover {
+  isolation: isolate;
+}
+.liquid-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.7), rgba(98, 165, 223, 0.16) 42%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-quart);
+  pointer-events: none;
+  z-index: -1;
+}
+.liquid-hover:hover::after {
+  opacity: 1;
+}
+
+/* ===================================================================
+   ผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว / ลดความโปร่งใส
+   =================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .rise {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong,
+  .glass-chip {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #f4f7fd;
+  }
+}
+
