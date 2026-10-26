@@ -42,6 +42,8 @@ Keep a task list; the order matters because each step makes the next one checkab
 
 ## Rules that save time (details in `references/pitfalls.md`)
 
+- Write `-webkit-backdrop-filter` **before** `backdrop-filter` in every rule. With the unprefixed property first, Next's CSS pipeline (Lightning CSS) emits only the `-webkit-` one, which Chromium ignores: no glass is blurred and nothing in a build or test tells you. After building, check `getComputedStyle(el).backdropFilter !== 'none'` on a glass element in a real browser.
+- Keyframes referenced from a CSS **module** are name-scoped to that module. `animation: shimmer` in `x.module.css` finds nothing when `shimmer` lives in `globals.css`, so the animation silently does not run. Declare the keyframes in the module (the bundled `brand-loader.module.css` does) or use a global class from JSX.
 - SVG gradient/filter ids must be unique per component instance (`useId`). A hidden duplicate of the logo (desktop sidebar on mobile) otherwise owns the shared ids and every other logo turns grey.
 - Tailwind remaps like `amber-*` → cyan exist in the dashboard config; check what a colour name really resolves to before reusing it, and use `orange-*`/`warning-*` for real warm accents.
 - `backdrop-filter` is expensive: frame, cards and overlays only, never more than two levels deep.

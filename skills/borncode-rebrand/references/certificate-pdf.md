@@ -18,6 +18,7 @@ Fonts: Noto Sans Thai (Thai), Outfit Regular/SemiBold (Latin) — the files in `
 - Keep the seal/decoration out of mask boxes (portal: x ≥ 719).
 - The preview image is WebP < 300 KB (a test enforces it) — no noise textures or fine patterns in the artwork; smooth gradients only.
 - The rasterised template must stay 3501×2478; the app resizes to that.
+- **Bleed.** PDF.js draws the full-page JPEG at fractional pixel bounds and leaves a near-black row along the top and bottom (visible as a dark hairline on the preview). Render the SVG with a 2 pt bleed (`viewBox="-2 -2 W+4 H+4"`, pixel size scaled to match) and draw the image at `x:-2, y:-2, width:W+4, height:H+4`. Check by rendering the template with PDF.js and printing the first and last pixel rows.
 - Name colour: set to brand ink `#24265D` in the project's certificate config.
 
 ## Design recipe that worked

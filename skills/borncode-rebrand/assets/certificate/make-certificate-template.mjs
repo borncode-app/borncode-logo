@@ -37,6 +37,11 @@ const DOTTED_LINE_X1 = 251
 const DOTTED_LINE_X2 = 592
 const DOTTED_LINE_Y = 290
 const SIG_LINE_Y = 86.5
+// เผื่อขอบ (bleed) 2 pt รอบหน้า: pdfjs วาดรูปเต็มหน้าที่พิกัดเศษส่วนแล้วขอบบน/ล่างของรูปกลายเป็นแถวพิกเซลดำ
+// (เห็นเป็นเส้นดำบางบนภาพตัวอย่าง) — ให้รูปล้นออกนอกหน้าแล้วขอบรูปจะอยู่นอกกรอบหน้ากระดาษ
+const BLEED = 2
+const BLEED_PX_W = Math.round(((W + BLEED * 2) * PX_W) / W)
+const BLEED_PX_H = Math.round(((H + BLEED * 2) * PX_H) / H)
 
 // ---- สีแบรนด์ (BornCode DESIGN.md) ----
 const hex = (h) => rgb(parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255)
@@ -94,7 +99,7 @@ function artworkSvg() {
   // ขอบนอกของแผ่นแก้วที่ "สีแสงฟุ้ง" ซึมเข้ามา: ซ้าย/บน/ขวา ลึก 80, ล่างตื้น 26
   // (ล่างต้องตื้น เพราะบริเวณลายเซ็นต้องเป็นสีเรียบสำหรับกรอบ mask)
   const inset = { l: 84, t: 84, r: 84, b: 26 }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${PX_W}" height="${PX_H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${BLEED_PX_W}" height="${BLEED_PX_H}" viewBox="${-BLEED} ${-BLEED} ${W + BLEED * 2} ${H + BLEED * 2}">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#e4eefb"/>
@@ -132,7 +137,7 @@ function artworkSvg() {
   </defs>
 
   <!-- พื้นหลัง + แสงฟุ้ง -->
-  <rect width="${W}" height="${H}" fill="url(#bg)"/>
+  <rect x="${-BLEED}" y="${-BLEED}" width="${W + BLEED * 2}" height="${H + BLEED * 2}" fill="url(#bg)"/>
   <g filter="url(#blurXL)">
     <circle cx="30" cy="${Y(40)}" r="250" fill="url(#bSky)" opacity="0.95"/>
     <circle cx="${W - 20}" cy="${Y(H - 30)}" r="220" fill="url(#bViolet)" opacity="0.85"/>
@@ -174,7 +179,7 @@ function artworkSvg() {
 }
 
 const artworkJpeg = await sharp(Buffer.from(artworkSvg()), { density: 72 })
-  .resize(PX_W, PX_H, { fit: 'fill' })
+  .resize(BLEED_PX_W, BLEED_PX_H, { fit: 'fill' })
   .jpeg({ quality: 93, chromaSubsampling: '4:4:4' })
   .toBuffer()
 
@@ -190,7 +195,7 @@ const bg = await doc.embedJpg(artworkJpeg)
 const logoH = await doc.embedPng(fs.readFileSync(LOGO_H))
 const logoMark = await doc.embedPng(fs.readFileSync(LOGO_MARK))
 const page = doc.addPage([W, H])
-page.drawImage(bg, { x: 0, y: 0, width: W, height: H })
+page.drawImage(bg, { x: -BLEED, y: -BLEED, width: W + BLEED * 2, height: H + BLEED * 2 })
 
 /** แยกข้อความเป็น run ไทย/ละติน — แต่ละ run ใช้ฟอนต์ของตัวเอง */
 function splitRuns(text) {
