@@ -438,10 +438,16 @@
 .bc-card {
   min-width: 0;
   padding: 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--tone-border, rgba(255, 255, 255, 0.7));
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 12px 30px -20px rgba(45, 71, 153, 0.3);
+  background: var(--tone-bg, rgba(255, 255, 255, 0.6));
+  box-shadow: var(--tone-shadow, 0 12px 30px -20px rgba(45, 71, 153, 0.3));
+}
+/* การ์ดที่มีโทนสี (.tone-*): ตัวเลข/หัวข้อเด่นใช้สีเข้มของโทน, ข้อความรองใช้สีรองของโทน */
+.bc-card .bc-label,
+.bc-card .bc-stat__foot,
+.bc-card .bc-greeting p {
+  color: var(--tone-muted, var(--color-text-muted));
 }
 .bc-card__head {
   display: flex;
@@ -464,6 +470,30 @@
 }
 .bc-card__link:hover {
   color: var(--color-brand);
+}
+
+/* แถวการ์ดสถานะ: การ์ดละโทนสีตามความหมาย (ฟ้า=ทั้งหมด, ชมพู=ค้าง, พีช=กำลังทำ, เขียว=เสร็จ) */
+.bc-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.bc-tiles .bc-stat__value {
+  font-size: 40px;
+}
+
+/* แจ้งเตือนสั้น (toast) ใช้โทนสีเดียวกับการ์ด */
+.bc-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--tone-border, rgba(255, 255, 255, 0.8));
+  border-radius: 18px;
+  font-weight: 500;
+  color: var(--tone-ink, var(--bc-ink));
+  background: var(--tone-bg, rgba(255, 255, 255, 0.7));
+  box-shadow: var(--tone-shadow, 0 12px 30px -20px rgba(45, 71, 153, 0.3));
 }
 
 /* แถวการ์ดสรุป: ทักทาย + ตัวเลขสถิติ */
@@ -499,7 +529,7 @@
   font-size: 36px;
   font-weight: 400;
   line-height: 1.1;
-  color: var(--bc-ink);
+  color: var(--tone-ink, var(--bc-ink));
 }
 .bc-stat__foot {
   display: flex;
@@ -712,6 +742,9 @@
 
 /* ---------- จอเล็กลง ---------- */
 @media (max-width: 1000px) {
+  .bc-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .bc-stats,
   .bc-duo,
   .bc-bars {

@@ -3,10 +3,10 @@
    =================================================================== */
 .glass {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--tone-border, rgba(255, 255, 255, 0.7));
   border-radius: var(--radius-card);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%);
-  box-shadow: var(--shadow-1);
+  background: var(--tone-bg, linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%));
+  box-shadow: var(--tone-shadow, var(--shadow-1));
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
 }
@@ -18,7 +18,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 42%, rgba(98, 165, 223, 0.35));
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 42%, var(--tone-rim, rgba(98, 165, 223, 0.35)));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -26,16 +26,59 @@
 }
 
 .glass-strong {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.66) 100%);
-  box-shadow: var(--shadow-2);
+  background: var(--tone-bg, linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.66) 100%));
+  box-shadow: var(--tone-shadow, var(--shadow-2));
 }
 
 /* ชิ้นเล็ก: ปุ่มรอง ป้ายสถานะ ช่องข้อมูล */
 .glass-chip {
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: var(--radius-control);
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--tone-bg, rgba(255, 255, 255, 0.6));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 6px 18px -8px rgba(36, 38, 93, 0.22);
+}
+
+/* ===================================================================
+   โทนสีการ์ด — ใส่คลาส .tone-* คู่กับ .glass / .glass-strong / .glass-chip / .bc-card / .bc-toast
+   ทั้งใบเปลี่ยนเป็นสีพาสเทลเดียว (ไม่ไล่สี ไม่มีก้อนแสงที่มุม ไม่มีแถบสีบนหัวการ์ด)
+   ตัวแปรที่ตั้ง: --tone-bg พื้น · --tone-ink ตัวเลข/ข้อความเด่น · --tone-muted ข้อความรอง
+                  --tone-shadow เงาสีเดียวกับโทน · --tone-rim ประกายขอบ · --tone-hover แสงเมาส์
+   =================================================================== */
+.tone-blue {
+  --tone-bg: rgba(220, 235, 251, 0.9); /* #DCEBFB */
+  --tone-ink: var(--tone-blue-ink);
+  --tone-muted: var(--tone-blue-muted);
+  --tone-border: rgba(255, 255, 255, 0.8);
+  --tone-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 12px 30px -18px rgba(45, 71, 153, 0.32);
+  --tone-rim: rgba(255, 255, 255, 0.45);
+  --tone-hover: rgba(255, 255, 255, 0);
+}
+.tone-rose {
+  --tone-bg: rgba(252, 228, 232, 0.9); /* #FCE4E8 */
+  --tone-ink: var(--tone-rose-ink);
+  --tone-muted: var(--tone-rose-muted);
+  --tone-border: rgba(255, 255, 255, 0.8);
+  --tone-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 12px 30px -18px rgba(159, 18, 57, 0.3);
+  --tone-rim: rgba(255, 255, 255, 0.45);
+  --tone-hover: rgba(255, 255, 255, 0);
+}
+.tone-mint {
+  --tone-bg: rgba(221, 244, 232, 0.9); /* #DDF4E8 */
+  --tone-ink: var(--tone-mint-ink);
+  --tone-muted: var(--tone-mint-muted);
+  --tone-border: rgba(255, 255, 255, 0.8);
+  --tone-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 12px 30px -18px rgba(11, 107, 69, 0.28);
+  --tone-rim: rgba(255, 255, 255, 0.45);
+  --tone-hover: rgba(255, 255, 255, 0);
+}
+.tone-peach {
+  --tone-bg: rgba(253, 232, 214, 0.9); /* #FDE8D6 */
+  --tone-ink: var(--tone-peach-ink);
+  --tone-muted: var(--tone-peach-muted);
+  --tone-border: rgba(255, 255, 255, 0.8);
+  --tone-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 12px 30px -18px rgba(154, 74, 11, 0.28);
+  --tone-rim: rgba(255, 255, 255, 0.45);
+  --tone-hover: rgba(255, 255, 255, 0);
 }
 
 /* ปุ่มหลัก — ไล่สีแบรนด์ ไหลช้า ๆ */
@@ -177,7 +220,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.7), rgba(98, 165, 223, 0.16) 42%, transparent 70%);
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.7), var(--tone-hover, rgba(98, 165, 223, 0.16)) 42%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s var(--ease-out-quart);
   pointer-events: none;

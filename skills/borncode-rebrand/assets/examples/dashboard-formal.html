@@ -28,6 +28,7 @@
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
   <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 14.5 6-6 6 6"/></symbol>
   <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></symbol>
@@ -113,6 +114,16 @@
           <div class="bc-stat__foot"><span>แนวโน้มเดือนที่แล้ว</span><span class="bc-delta bc-delta--down">−5.67%</span></div>
         </article>
       </section>
+
+      <!-- การ์ดสถานะ: ทั้งใบเปลี่ยนเป็นสีพาสเทลตามความหมาย (class tone-*) ไม่ใช้ก้อนแสงมุมหรือแถบสีบนหัวการ์ด -->
+      <section class="bc-tiles" aria-label="สถานะตั๋ว">
+        <article class="bc-card bc-stat tone-blue"><p class="bc-label">จำนวนงานทั้งหมด</p><div class="bc-stat__value">64</div><div class="bc-stat__foot"><span>Tickets</span></div></article>
+        <article class="bc-card bc-stat tone-rose"><p class="bc-label">ยังไม่ปิด</p><div class="bc-stat__value">8</div><div class="bc-stat__foot"><span>Tickets</span></div></article>
+        <article class="bc-card bc-stat tone-peach"><p class="bc-label">กำลังดำเนินการ</p><div class="bc-stat__value">12</div><div class="bc-stat__foot"><span>Tickets</span></div></article>
+        <article class="bc-card bc-stat tone-mint"><p class="bc-label">ปิดแล้ว</p><div class="bc-stat__value">44</div><div class="bc-stat__foot"><span>Tickets</span></div></article>
+      </section>
+
+      <div><span class="bc-toast tone-mint" role="status"><svg class="bc-icon" aria-hidden="true"><use href="#i-check"/></svg>บันทึกข้อมูลเรียบร้อยแล้ว</span></div>
 
       <section class="bc-card" aria-labelledby="t-cases">
         <div class="bc-card__head">

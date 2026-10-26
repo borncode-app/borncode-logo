@@ -46,7 +46,7 @@ Page canvas: `--bc-sky-gradient` (`linear-gradient(105deg, #78B6EE, #AFD3F3, #D2
 
 ## Components
 
-- **Stat cards:** replace coloured left borders with a corner orb (blurred gradient circle) plus a short accent bar on the top edge; accent by meaning (pending = rose, total = blue, rate = sky, time = orange, count = neutral/orange/rose by value). Keep count-up numbers.
+- **Stat cards:** replace coloured left borders with a **whole-card pastel tone** (`tone-blue` / `tone-rose` / `tone-mint` / `tone-peach` from `borncode-glass.css`), chosen by meaning: total = blue, pending/overdue = rose, in progress/warning = peach, done/success = mint, no tone = neutral count. The card is one flat tint: **no corner orb, no top accent bar, no gradient fill**. The number takes `--tone-ink`, secondary text `--tone-muted`. Keep count-up numbers.
 - **Charts (Recharts):** gradient bars via `<defs>` + `fill="url(#id)"`, dashed horizontal grid only (`rgba(45,71,153,.15)`), no axis lines, tick colour `#2D4799`, glass tooltip (`white/80`, blur 16px, radius 16). Bar animation 1100 ms.
 - **Tables:** header `white/40`, row dividers `white/60`, hover `white/50`; rank badges with gradients (1 sky→navy, 2 pale sky→royal, 3 white→pale sky).
 - **Modals/dropdowns:** overlay `bg-brand-ink/30 backdrop-blur-md`, panel `glass-strong rounded-3xl`, header strip a `from-brand-sky via-brand-royal to-brand-navy` gradient or `white/40`.

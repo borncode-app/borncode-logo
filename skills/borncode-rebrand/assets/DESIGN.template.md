@@ -39,6 +39,8 @@ Source of truth in code:
 | `brand-indigo` / `--bc-layer-5` | `#2B3681` | Logo layer 5, hover |
 | `brand-ink` / `--bc-layer-6` | `#24265D` | Headings and main text |
 
+Card tones: `tone-blue` `#DCEBFB`, `tone-rose` `#FCE4E8`, `tone-mint` `#DDF4E8`, `tone-peach` `#FDE8D6`, each with an ink and a muted text colour (contrast 5.3–7.5 : 1). Whole card, flat, by meaning; no gradients or corner glows.
+
 Background-only light: `--bc-glow` `#A9C7EC`, `--bc-sky` `#6FA3E0` and white for the background gradient and sheen. Never text. No violet or other off-brand glow, and no dark navy backdrop.
 
 ### Semantic and scales
@@ -91,7 +93,7 @@ One fixed smooth gradient (`--bc-sky-gradient`: dark sky on the left fading to n
 
 ## 6. Components
 
-<One short bullet per component that has a BornCode-specific treatment: nav item, stat card (orb + accent bar), buttons, badges, lists, charts (gradient bars, dashed grid, glass tooltip), inputs, modals.>
+<One short bullet per component that has a BornCode-specific treatment: nav item, stat card (flat pastel tone: `tone-*`, no orb, no accent bar), buttons, badges, lists, charts (gradient bars, dashed grid, glass tooltip), inputs, modals.>
 
 ### Logo mark (`BrandMark`)
 

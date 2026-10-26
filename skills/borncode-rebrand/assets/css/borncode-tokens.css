@@ -41,6 +41,15 @@
   --blue-950: #171A40;
 
   /* สีอ่อน */
+  /* ===== โทนสีการ์ดพาสเทล =====
+     ใช้ทั้งใบเป็นสีเดียว (flat) ตามความหมาย: ฟ้า=รวม/ข้อมูล, ชมพูกุหลาบ=ค้าง/ผิดปกติ,
+     เขียวมิ้นต์=สำเร็จ, พีช=กำลังดำเนินการ/เตือน — ไม่ไล่สี ไม่มีก้อนแสงมุม ไม่มีแถบสีบนหัวการ์ด
+     ตัวอักษรทุกคู่ผ่าน AA (ตัวหนา/ตัวเลข ≥ 5.3 : 1, ข้อความรอง ≥ 6.2 : 1) ดูคลาส .tone-* ใน borncode-glass.css */
+  --tone-blue-bg: #DCEBFB;  --tone-blue-ink: #2D4799;  --tone-blue-muted: #3B4C86;
+  --tone-rose-bg: #FCE4E8;  --tone-rose-ink: #9F1239;  --tone-rose-muted: #7A2F45;
+  --tone-mint-bg: #DDF4E8;  --tone-mint-ink: #0B6B45;  --tone-mint-muted: #285F47;
+  --tone-peach-bg: #FDE8D6; --tone-peach-ink: #9A4A0B; --tone-peach-muted: #7A4B22;
+
   --color-tint: #EEF5FC;
   --color-tint-strong: #D9E9F8;
 

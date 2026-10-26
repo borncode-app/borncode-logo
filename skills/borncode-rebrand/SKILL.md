@@ -49,6 +49,7 @@ Keep a task list; the order matters because each step makes the next one checkab
 - SVG gradient/filter ids must be unique per component instance (`useId`). A hidden duplicate of the logo (desktop sidebar on mobile) otherwise owns the shared ids and every other logo turns grey.
 - Tailwind remaps like `amber-*` → cyan exist in the dashboard config; check what a colour name really resolves to before reusing it, and use `orange-*`/`warning-*` for real warm accents.
 - `backdrop-filter` is expensive: frame, cards and overlays only, never more than two levels deep.
+- Colour a card by giving the **whole card** a `tone-*` class. Never add a corner orb, a top accent bar or a gradient fill to show meaning.
 - Never put sky `#62A5DF` on text over white (2.6:1); sky is for fills and focus rings. Glow colours (`--bc-glow`, `--bc-sky`) are background-only. No violet, no dark navy backdrop.
 - Do not edit the user's local `.env`; if a local setting breaks dev (e.g. a Docker-only path), override it in the launch command and tell the user.
 - Commits in the user's portfolio repos use the author email that links to their GitHub account and carry no Claude co-author line (check memory / `git config user.email` before committing).
@@ -56,7 +57,7 @@ Keep a task list; the order matters because each step makes the next one checkab
 ## Bundled files
 
 - `assets/components/` — `BrandMark.tsx`, `BrandLoader.tsx` (+ `brand-loader.module.css`), `LiquidBackground.tsx`, `liquidHover.ts`: copy into the project's components folder and adjust import paths.
-- `assets/css/borncode-tokens.css`, `borncode-glass.css` — tokens, glass utilities, the sky-gradient background, keyframes, reduced-motion/transparency fallbacks.
+- `assets/css/borncode-tokens.css`, `borncode-glass.css` — tokens, glass utilities, the sky-gradient background, keyframes, reduced-motion/transparency fallbacks, and the pastel card tones (`.tone-blue|rose|mint|peach`: add one to any `.glass`, `.glass-chip`, `.bc-card` or `.bc-toast` to tint the whole card).
 - `assets/css/borncode-dashboard.css` + `assets/examples/dashboard-formal.html` — dashboard layout with a short-to-long side menu (icon rail that expands on hover, button + drawer on touch/mobile), search bar, stat cards with sparklines, table with priority pills, message feed and bar chart; the spec is section 5.1 of the kit's `DESIGN.md`. Use it for admin, report and back-office screens. The example page is the visual reference to open in a browser.
 - `assets/brand/` — horizontal logo and mark PNGs for embedding in PDFs.
 - `assets/certificate/make-certificate-template.mjs` — the generator for the A4 certificate (background artwork rendered from SVG with sharp, vector text with pdf-lib).
