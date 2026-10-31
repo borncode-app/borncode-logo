@@ -14,7 +14,7 @@ borncode-logo/
 ├── DESIGN.md                  สเปกการออกแบบ / design system
 ├── svg/                       ไฟล์เวกเตอร์ ใช้ทำเว็บ สไลด์ งานดิจิทัล ส่งดีไซเนอร์
 ├── png/512 | 1024 | 2048/     PNG พื้นโปร่งใส กว้าง 512 / 1024 / 2048 px
-├── web/                       favicon, ไอคอนแอป, site.webmanifest
+├── web/                       favicon, ไอคอนแอป, site.webmanifest, favicon-1080/1920 สำหรับรูปโปรไฟล์เพจ
 └── social/                    รูปแชร์ลิงก์ (OG) และรูปโปรไฟล์
 ```
 
@@ -81,7 +81,7 @@ borncode-logo/
 
 ## ติดตั้งบนเว็บไซต์
 
-คัดลอกไฟล์ทั้งหมดใน `web/` และ `social/og-image-1200x630.png` ไปไว้ที่ root ของเว็บ แล้วใส่ใน `<head>` (เปลี่ยน `YOUR-DOMAIN` เป็นโดเมนจริง):
+คัดลอกไฟล์ใน `web/` (ยกเว้น `favicon-1080.png` / `favicon-1920.png` ที่มีไว้ทำรูปโปรไฟล์เพจ) และ `social/og-image-1200x630.png` ไปไว้ที่ root ของเว็บ แล้วใส่ใน `<head>` (เปลี่ยน `YOUR-DOMAIN` เป็นโดเมนจริง):
 
 ```html
 <link rel="icon" href="/favicon.ico" sizes="48x48">
